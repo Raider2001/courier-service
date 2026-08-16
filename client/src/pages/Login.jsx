@@ -48,6 +48,10 @@ export default function Login() {
           New customer? <Link to="/register">Create an account</Link>
         </p>
 
+        <p className="auth-switch">
+          <Link to="/">← Back to home</Link>
+        </p>
+
         <p className="demo-hint">
           Demo logins — owner: <strong>admin@courier.local</strong> / changeme123 · customer:{' '}
           <strong>demo@customer.local</strong> / demo1234 · driver:{' '}
