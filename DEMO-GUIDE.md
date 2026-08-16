@@ -9,7 +9,7 @@ live, so you can look it over whenever suits you, day or night.*
 
 Open your phone's browser (Safari, Chrome — any) and go to:
 
-> ## https://das-heated-billy-typing.trycloudflare.com
+> ## <https://das-heated-billy-typing.trycloudflare.com>
 
 - Works from anywhere — home, the office, mobile data. No special Wi-Fi.
 - Once it loads, choose **"Add to Home Screen"** from your browser's menu
@@ -38,7 +38,7 @@ Use **Sign out** (bottom of the menu), then sign in as the next one.
 
 ## 3. Your view — the owner
 
-Sign in as **admin@courier.local**. This is your control room.
+Sign in as **`admin@courier.local`**. This is your control room.
 
 1. **Today** — one screen with everything: today's runs, new requests
    waiting on you, miles and money this month, and who still owes you.
@@ -56,7 +56,7 @@ Sign in as **admin@courier.local**. This is your control room.
 
 ## 4. Your customers' view
 
-Sign in as **demo@customer.local**.
+Sign in as **`demo@customer.local`**.
 
 1. **Book a delivery** — their saved addresses appear as one-tap buttons
    with their usual pickup and drop-off already picked. A regular books
@@ -72,7 +72,7 @@ New customers create their own account from the sign-in screen — try
 
 ## 5. Your drivers' view (best on a phone)
 
-Sign in as **danny@courier.local**.
+Sign in as **`danny@courier.local`**.
 
 1. **My runs** — each job is a card with both addresses and tap-to-call
    phone numbers.

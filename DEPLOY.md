@@ -59,7 +59,7 @@ npm install
 
 Edit `server/.env` first:
 
-```
+```ini
 NODE_ENV=production
 JWT_SECRET=<paste something long and random>
 ADMIN_EMAIL=her-real-email@example.com
@@ -87,12 +87,14 @@ useless for real use. Set up a **named** Cloudflare tunnel (free, stable):
 1. Sign up at cloudflare.com and add a domain (buy one, ~£10/yr — e.g.
    `herbusiness.co.uk`).
 2. On the machine:
+
    ```bash
    .tools/cloudflared.exe tunnel login
    .tools/cloudflared.exe tunnel create courier
    .tools/cloudflared.exe tunnel route dns courier app.herbusiness.co.uk
    .tools/cloudflared.exe tunnel run --url http://localhost:4000 courier
    ```
+
 3. Now `https://app.herbusiness.co.uk` reaches the app — same address
    forever, even after reboots.
 
@@ -117,12 +119,14 @@ useless for real use. Set up a **named** Cloudflare tunnel (free, stable):
   laptop. She never needs to touch the machine, the code, or the database.
 - **You monitor locally:** keep your dev copy on your own machine. To ship
   a change during the 30 days:
+
   ```bash
   # on your machine
   git pull            # in case anything changed
   # ...make the change, test with npm run dev...
   git add -A && git commit -m "what changed" && git push
   ```
+
   Then: **Path A** — Render redeploys itself. **Path B** — on her machine:
   `git pull && npm install && npm run build`, restart the app.
 - **Health check:** `https://<the-app-address>/api/health` returns
