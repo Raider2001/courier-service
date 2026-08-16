@@ -84,7 +84,7 @@ copy that folder somewhere safe (do this weekly at minimum).
 The demo used a "quick tunnel" — the URL changes on every restart, which is
 useless for real use. Set up a **named** Cloudflare tunnel (free, stable):
 
-1. Sign up at cloudflare.com and add a domain (buy one, ~£10/yr — e.g.
+1. Sign up at cloudflare.com and add a domain (buy one, ~$12/yr — e.g.
    `herbusiness.co.uk`).
 2. On the machine:
 

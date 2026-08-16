@@ -7,12 +7,12 @@ export const STATUS_LABELS = {
 };
 
 export const money = (value) =>
-  `£${Number(value || 0).toLocaleString('en-GB', {
+  `$${Number(value || 0).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
 
-export const miles = (value) => `${Number(value || 0).toLocaleString('en-GB')} mi`;
+export const miles = (value) => `${Number(value || 0).toLocaleString('en-US')} mi`;
 
 export function dateTime(value) {
   if (!value) return '—';
