@@ -3,23 +3,55 @@ import { Link } from 'react-router-dom';
 
 /**
  * The public home page - the only page search engines and first-time
- * visitors see. Everything else lives behind a login.
+ * visitors see. Positioned for the high-trust niche: important documents
+ * that absolutely must get there.
  *
- * SERVICES is deliberately just a list: to offer something new (e.g. mobile
- * notary once certified), add one entry here and the page updates itself.
+ * SERVICES and CARRY are deliberately just lists: to offer something new
+ * (e.g. mobile notary once certified), add one entry and the page updates.
+ * Every claim on this page is something the app genuinely does - add
+ * "bonded & insured" style badges only once they are true.
  */
+const CARRY = [
+  'Real estate closings',
+  'Title documents',
+  'Legal filings',
+  'Medical records',
+  'Insurance paperwork',
+  'Business contracts',
+  'Signature-required packages',
+];
+
+const PILLARS = [
+  {
+    title: 'Chain of custody',
+    text: 'Every run is time-stamped from pickup to drop-off, with the driver on record. You can see where your documents are without calling anyone.',
+  },
+  {
+    title: 'One driver, door to door',
+    text: 'No depots, no sorting belts, no third pair of hands. The person who collects your envelope is the person who delivers it.',
+  },
+  {
+    title: 'Discreet and careful',
+    text: 'Sensitive paperwork stays sealed and is handed to the named recipient - not left on a porch, not signed for by a stranger.',
+  },
+  {
+    title: 'Everything on record',
+    text: 'Every delivery, mile and charge is kept in your account history. If a question comes up months later, the answer is one search away.',
+  },
+];
+
 const SERVICES = [
   {
     title: 'Same-day delivery',
-    text: 'Booked in the morning, delivered by the afternoon. Documents, parcels and packages moved across town while you get on with your day.',
+    text: 'Booked in the morning, delivered by the afternoon - across town while you get on with your day.',
   },
   {
     title: 'Scheduled runs',
-    text: 'Regular routes on the days you choose - shop restocks, court bundles, weekly transfers. Set it up once and forget about it.',
+    text: 'Regular routes on the days you choose - weekly filings, records transfers, recurring closings. Set it up once.',
   },
   {
-    title: 'Urgent & legal documents',
-    text: 'Time-critical paperwork handled with care and delivered into the right hands, with a record of every step.',
+    title: 'Urgent & time-critical',
+    text: 'Deadline filings and must-sign packages, moved directly and confirmed the moment they arrive.',
   },
   // Coming later - uncomment when certified:
   // {
@@ -40,7 +72,7 @@ const STEPS = [
   },
   {
     title: 'See exactly what it cost',
-    text: 'Fair, mileage-based pricing. Every delivery and every price stays in your history.',
+    text: 'Fair, transparent mileage-based pricing. Every delivery and every price stays in your history.',
   },
 ];
 
@@ -50,11 +82,11 @@ export default function Home() {
       <header className="landing-bar">
         <div className="brand">
           Courier
-          <small>Deliveries you can see</small>
+          <small>Document &amp; parcel delivery</small>
         </div>
         <nav className="landing-nav">
           <Link to="/login">
-            <button type="button" className="secondary">
+            <button type="button" className="ghost">
               Sign in
             </button>
           </Link>
@@ -66,25 +98,56 @@ export default function Home() {
 
       <main>
         <section className="hero">
-          <h1>Your delivery, door to door, without the phone calls.</h1>
+          <p className="eyebrow">Trusted courier service</p>
+          <h1>Important documents, delivered like they matter.</h1>
           <p>
-            Book a courier online in under a minute, track it from pickup to drop-off, and keep
-            every delivery and price in one place.
+            Closings, filings, records and contracts - collected by a named driver, tracked at
+            every step, and placed in the right hands. Businesses choose us for reliability,
+            not just speed.
           </p>
           <div className="actions">
             <Link to="/register">
-              <button type="button">Book your first delivery</button>
+              <button type="button">Book a delivery</button>
             </Link>
             <Link to="/login">
-              <button type="button" className="secondary">
+              <button type="button" className="ghost">
                 I already have an account
               </button>
             </Link>
           </div>
+          <p className="hero-strip">
+            Time-stamped chain of custody &nbsp;·&nbsp; One driver, door to door &nbsp;·&nbsp;
+            Every delivery on record
+          </p>
         </section>
 
         <section className="landing-section">
-          <h2>What we do</h2>
+          <h2>What we&apos;re trusted with</h2>
+          <p className="section-lede">
+            The paperwork that can&apos;t be &quot;probably fine&quot; - it has to arrive, intact,
+            with proof.
+          </p>
+          <ul className="checklist">
+            {CARRY.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="landing-section">
+          <h2>Why offices hand us their sensitive files</h2>
+          <div className="landing-cards">
+            {PILLARS.map((pillar) => (
+              <div key={pillar.title} className="landing-card pillar">
+                <h3>{pillar.title}</h3>
+                <p>{pillar.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="landing-section">
+          <h2>Services</h2>
           <div className="landing-cards">
             {SERVICES.map((service) => (
               <div key={service.title} className="landing-card">
@@ -111,11 +174,11 @@ export default function Home() {
         </section>
 
         <section className="landing-section landing-cta">
-          <h2>Run deliveries for your business?</h2>
+          <h2>Send documents regularly?</h2>
           <p>
-            Regular customers get saved addresses, one-tap booking and a full history of every
-            job and invoice - so nobody on your team ever re-types an address or chases a
-            delivery by phone.
+            Law offices, title agencies, clinics and brokerages get saved addresses, one-tap
+            booking, transparent per-mile pricing and a complete, searchable record of every
+            delivery - so no one on your team ever chases a package by phone.
           </p>
           <Link to="/register">
             <button type="button">Set up your business account</button>

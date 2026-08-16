@@ -753,27 +753,116 @@ ul.plain li:last-child {
   flex-wrap: wrap;
 }
 
+/* Serif headlines on the public page - the classic trust cue of legal and
+   financial stationery, without touching the working app's clean sans. */
+.landing h1,
+.landing h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
 .hero {
-  padding: 72px 24px 56px;
+  background: linear-gradient(165deg, #0c1320 0%, #16233a 70%, #1b2c49 100%);
+  color: #eef2f8;
+  padding: 84px 24px 64px;
   text-align: center;
-  max-width: 720px;
-  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: #7fa3e8;
 }
 
 .hero h1 {
-  font-size: 2.1rem;
-  line-height: 1.2;
+  font-size: 2.45rem;
+  line-height: 1.18;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
-.hero p {
-  color: var(--muted);
-  font-size: 1.08rem;
-  margin: 16px auto 26px;
-  max-width: 560px;
+.hero > p {
+  color: #b8c4d8;
+  font-size: 1.1rem;
+  margin: 18px auto 30px;
+  max-width: 600px;
 }
 
 .hero .actions {
   justify-content: center;
+}
+
+.hero-strip {
+  margin: 34px auto 0 !important;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  max-width: 640px;
+  font-size: 0.85rem;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #8fa0ba !important;
+}
+
+/* Outlined button for dark surfaces (top bar + hero). */
+button.ghost {
+  background: transparent;
+  color: #eef2f8;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+button.ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.section-lede {
+  color: var(--muted);
+  margin: -8px 0 18px;
+  max-width: 560px;
+}
+
+/* The "what we're trusted with" checklist. */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px 24px;
+}
+
+.checklist li {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px 12px 42px;
+  position: relative;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.checklist li::before {
+  content: '✓';
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e0f5e9;
+  color: var(--good);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.landing-card.pillar {
+  border-top: 3px solid var(--brand);
 }
 
 .landing-section {
@@ -934,10 +1023,10 @@ ul.plain li:last-child {
   }
 
   .hero {
-    padding: 44px 20px 36px;
+    padding: 52px 20px 44px;
   }
 
   .hero h1 {
-    font-size: 1.55rem;
+    font-size: 1.7rem;
   }
 }
