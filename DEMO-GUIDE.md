@@ -27,7 +27,7 @@ Everything in here is **pretend demo data** — made-up customers, made-up
 deliveries. Nothing you press can break anything, so press everything.
 
 | Who you're signed in as | Email | Password |
-|---|---|---|
+| --- | --- | --- |
 | **You — the owner** | `admin@courier.local` | `changeme123` |
 | One of your customers | `demo@customer.local` | `demo1234` |
 | One of your drivers | `danny@courier.local` | `drive1234` |

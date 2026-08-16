@@ -7,7 +7,7 @@ and every job in one place.
 ## The three sign-ins
 
 | Role | What they see | Demo login |
-|---|---|---|
+| --- | --- | --- |
 | **Owner (admin)** | Today's board, all deliveries, customers, drivers, mileage, revenue, outstanding invoices | `admin@courier.local` / `changeme123` |
 | **Customer** | Book a delivery, track their orders, saved addresses, spend | `demo@customer.local` / `demo1234` |
 | **Driver** | Their assigned runs with tap-to-call numbers, one-tap "Picked up" / "Delivered", odometer entry, delivery history | `danny@courier.local` / `drive1234` |
@@ -42,7 +42,7 @@ npm start          # production mode: one server serves API + built app
 
 ## How it's put together
 
-```
+```text
 server/   Express API (ESM). JWT in an httpOnly cookie, bcrypt passwords,
           role-based access: admin / customer / driver.
   db/     schema.sql + setup.js (idempotent create + seed)
