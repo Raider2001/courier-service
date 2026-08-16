@@ -6,13 +6,16 @@
 
 ## 1. Open the app on your phone
 
-The app currently runs on the developer's computer, so both of these must be
-true while you try it:
+**Easiest way — the internet link.** If you've been given a link ending in
+`trycloudflare.com`, just open it in your phone's browser. It works from
+anywhere — home, the office, mobile data — no Wi-Fi rules. Write it here:
 
-- The app is running on that computer (`npm run dev`)
-- Your phone is on the **same Wi-Fi network** as that computer
+> **Today's link:** ______________________________________
 
-Then open your phone's browser and type this address exactly:
+(That link only works while the app is running on the developer's computer,
+and it changes each time it's restarted — so check you have today's.)
+
+**Or, on the same Wi-Fi as the developer's computer**, type this address:
 
 > ## `http://192.168.12.108:5173`
 
