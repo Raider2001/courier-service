@@ -1,0 +1,31 @@
+# Render blueprint: one web service (API + built React app) + Postgres.
+# In Render: New -> Blueprint -> point at this repo.
+services:
+  - type: web
+    name: courier
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    # setup.js is idempotent: creates tables if missing, seeds only when empty.
+    startCommand: node server/db/setup.js && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: courier-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false # set in the dashboard - the owner's login email
+      - key: ADMIN_PASSWORD
+        sync: false # set in the dashboard - pick a strong one
+      - key: ADMIN_NAME
+        sync: false
+
+databases:
+  - name: courier-db
+    databaseName: courier
+    plan: free

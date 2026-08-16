@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Local database files (PGlite dev database)
+server/.data/
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local AI-tool state
+.refact/
