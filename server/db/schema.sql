@@ -3,6 +3,24 @@
 -- Railway / DigitalOcean). Safe to run repeatedly.
 
 -- ---------------------------------------------------------------------------
+-- Business-wide pricing settings (single row). The owner tunes these in the
+-- app; every new price calculation reads them.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS settings (
+  id               INTEGER PRIMARY KEY CHECK (id = 1),
+  -- Flat callout fee added to every per-mile job.
+  base_fee         NUMERIC(10, 2) NOT NULL DEFAULT 5.00,
+  -- Fuel is free inside this radius...
+  fuel_free_miles  NUMERIC(10, 1) NOT NULL DEFAULT 25,
+  -- ...then this much per mile beyond it. Lower it where fuel is cheap.
+  fuel_per_mile    NUMERIC(10, 2) NOT NULL DEFAULT 0.30,
+  -- Sales tax percent on the total. Keep 0 until an accountant says otherwise.
+  tax_rate         NUMERIC(5, 2)  NOT NULL DEFAULT 0
+);
+
+INSERT INTO settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING;
+
+-- ---------------------------------------------------------------------------
 -- Customers: the businesses / people who book deliveries.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS customers (
@@ -122,9 +140,14 @@ CREATE TABLE IF NOT EXISTS jobs (
   odometer_end       NUMERIC(10, 1),
   miles              NUMERIC(10, 1) NOT NULL DEFAULT 0,
 
-  -- Money. fixed_price wins if set, otherwise miles * rate_per_mile.
+  -- Money. fixed_price wins if set, otherwise base fee + miles * rate + fuel.
+  -- The breakdown is snapshotted per job so later settings changes never
+  -- rewrite an old invoice.
   rate_per_mile      NUMERIC(10, 2),
   fixed_price        NUMERIC(10, 2),
+  base_fee           NUMERIC(10, 2) NOT NULL DEFAULT 0,
+  fuel_surcharge     NUMERIC(10, 2) NOT NULL DEFAULT 0,
+  tax_amount         NUMERIC(10, 2) NOT NULL DEFAULT 0,
   price              NUMERIC(10, 2) NOT NULL DEFAULT 0,
 
   invoiced           BOOLEAN NOT NULL DEFAULT FALSE,

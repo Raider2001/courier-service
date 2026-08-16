@@ -57,4 +57,7 @@ export const api = {
   drivers: (params) => request(`/drivers${qs(params)}`),
   createDriver: (body) => request('/drivers', { method: 'POST', body }),
   updateDriver: (id, body) => request(`/drivers/${id}`, { method: 'PATCH', body }),
+
+  settings: () => request('/settings'),
+  updateSettings: (body) => request('/settings', { method: 'PATCH', body }),
 };

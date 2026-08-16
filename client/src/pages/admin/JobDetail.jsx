@@ -177,6 +177,59 @@ export default function AdminJobDetail() {
               <dd>{job.price ? money(job.price) : '—'}</dd>
             </div>
           </dl>
+
+          {job.price > 0 && (
+            <>
+              <h4>Price breakdown</h4>
+              <table>
+                <tbody>
+                  {job.fixed_price != null ? (
+                    <tr>
+                      <td>Fixed price</td>
+                      <td className="num">{money(job.fixed_price)}</td>
+                    </tr>
+                  ) : (
+                    <>
+                      {job.base_fee > 0 && (
+                        <tr>
+                          <td>Base fee</td>
+                          <td className="num">{money(job.base_fee)}</td>
+                        </tr>
+                      )}
+                      <tr>
+                        <td>
+                          Mileage — {miles(job.miles)} × {money(job.rate_per_mile)}
+                        </td>
+                        <td className="num">
+                          {money(job.price - job.base_fee - job.fuel_surcharge - job.tax_amount)}
+                        </td>
+                      </tr>
+                      {job.fuel_surcharge > 0 && (
+                        <tr>
+                          <td>Fuel surcharge</td>
+                          <td className="num">{money(job.fuel_surcharge)}</td>
+                        </tr>
+                      )}
+                    </>
+                  )}
+                  {job.tax_amount > 0 && (
+                    <tr>
+                      <td>Tax</td>
+                      <td className="num">{money(job.tax_amount)}</td>
+                    </tr>
+                  )}
+                  <tr>
+                    <td>
+                      <strong>Total</strong>
+                    </td>
+                    <td className="num">
+                      <strong>{money(job.price)}</strong>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </>
+          )}
         </Card>
 
         <Card title="Update job">

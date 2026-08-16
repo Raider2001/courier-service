@@ -13,6 +13,7 @@ import {
   bool,
 } from '../lib/http.js';
 import { applyDerivedFields } from '../lib/pricing.js';
+import { getSettings } from '../lib/settings.js';
 import { applyUpdate, clean } from '../lib/sql.js';
 
 const router = Router();
@@ -27,6 +28,9 @@ const JOB_SELECT = `
          j.price::float            AS price,
          j.rate_per_mile::float    AS rate_per_mile,
          j.fixed_price::float      AS fixed_price,
+         j.base_fee::float         AS base_fee,
+         j.fuel_surcharge::float   AS fuel_surcharge,
+         j.tax_amount::float       AS tax_amount,
          j.parcel_weight_kg::float AS parcel_weight_kg,
          j.odometer_start::float   AS odometer_start,
          j.odometer_end::float     AS odometer_end,
@@ -233,7 +237,8 @@ router.post(
         fixed_price: req.user.role === 'admin' ? num(req.body.fixed_price, 'fixed_price') : null,
         rate_per_mile: customer.rate_per_mile,
       },
-      customer.rate_per_mile
+      customer.rate_per_mile,
+      await getSettings()
     );
 
     const { rows } = await query("SELECT nextval('job_reference_seq') AS seq");
@@ -245,13 +250,15 @@ router.post(
          pickup_address_id, pickup_name, pickup_phone, pickup_line1, pickup_line2, pickup_city, pickup_postcode,
          dropoff_address_id, dropoff_name, dropoff_phone, dropoff_line1, dropoff_line2, dropoff_city, dropoff_postcode,
          parcel_description, parcel_weight_kg, notes, scheduled_at,
-         odometer_start, odometer_end, miles, rate_per_mile, fixed_price, price
+         odometer_start, odometer_end, miles, rate_per_mile, fixed_price,
+         base_fee, fuel_surcharge, tax_amount, price
        ) VALUES (
          $1, $2, $3, $4, $5,
          $6, $7, $8, $9, $10, $11, $12,
          $13, $14, $15, $16, $17, $18, $19,
          $20, $21, $22, $23,
-         $24, $25, $26, $27, $28, $29
+         $24, $25, $26, $27, $28,
+         $29, $30, $31, $32
        )
        RETURNING id`,
       [
@@ -269,7 +276,8 @@ router.post(
         str(req.body.notes),
         timestamp(req.body.scheduled_at, 'scheduled_at'),
         derived.odometer_start, derived.odometer_end, derived.miles,
-        customer.rate_per_mile, derived.fixed_price, derived.price,
+        customer.rate_per_mile, derived.fixed_price,
+        derived.base_fee, derived.fuel_surcharge, derived.tax_amount, derived.price,
       ]
     );
 
@@ -330,13 +338,16 @@ router.patch(
       merged.delivered_at = new Date().toISOString();
     }
 
-    const derived = applyDerivedFields(merged, customer.rate_per_mile);
+    const derived = applyDerivedFields(merged, customer.rate_per_mile, await getSettings());
 
     const updates = clean({
       ...fields,
       collected_at: merged.collected_at,
       delivered_at: merged.delivered_at,
       miles: derived.miles,
+      base_fee: derived.base_fee,
+      fuel_surcharge: derived.fuel_surcharge,
+      tax_amount: derived.tax_amount,
       price: derived.price,
     });
 
@@ -397,13 +408,16 @@ async function driverPatch(existing, body) {
     merged.delivered_at = new Date().toISOString();
   }
 
-  const derived = applyDerivedFields(merged, customer.rate_per_mile);
+  const derived = applyDerivedFields(merged, customer.rate_per_mile, await getSettings());
 
   const updates = clean({
     ...fields,
     collected_at: merged.collected_at,
     delivered_at: merged.delivered_at,
     miles: derived.miles,
+    base_fee: derived.base_fee,
+    fuel_surcharge: derived.fuel_surcharge,
+    tax_amount: derived.tax_amount,
     price: derived.price,
   });
 

@@ -13,6 +13,7 @@ import AdminJobDetail from './pages/admin/JobDetail.jsx';
 import AdminCustomers from './pages/admin/Customers.jsx';
 import AdminCustomerDetail from './pages/admin/CustomerDetail.jsx';
 import AdminDrivers from './pages/admin/Drivers.jsx';
+import AdminPricing from './pages/admin/Pricing.jsx';
 
 import CustomerDashboard from './pages/customer/Dashboard.jsx';
 import BookDelivery from './pages/customer/Book.jsx';
@@ -28,6 +29,7 @@ const ADMIN_NAV = [
   { to: '/jobs', label: 'Deliveries' },
   { to: '/customers', label: 'Customers' },
   { to: '/drivers', label: 'Drivers' },
+  { to: '/pricing', label: 'Pricing' },
 ];
 
 const CUSTOMER_NAV = [
@@ -113,6 +115,7 @@ export default function App() {
             <Route path="/customers" element={<AdminCustomers />} />
             <Route path="/customers/:id" element={<AdminCustomerDetail />} />
             <Route path="/drivers" element={<AdminDrivers />} />
+            <Route path="/pricing" element={<AdminPricing />} />
           </>
         ) : isDriver ? (
           <>

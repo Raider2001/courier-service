@@ -106,6 +106,7 @@ export default function BookDelivery() {
 
   const [addresses, setAddresses] = useState([]);
   const [rate, setRate] = useState(null);
+  const [pricing, setPricing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -123,12 +124,13 @@ export default function BookDelivery() {
   // arrives already filled in for anyone who has booked before.
   useEffect(() => {
     let live = true;
-    Promise.all([api.addresses(), api.me()])
-      .then(([addressData, meData]) => {
+    Promise.all([api.addresses(), api.me(), api.settings()])
+      .then(([addressData, meData, settingsData]) => {
         if (!live) return;
         const list = addressData.addresses || [];
         setAddresses(list);
         setRate(meData.user?.customer?.rate_per_mile ?? null);
+        setPricing(settingsData.settings ?? null);
 
         const usualPickup = list.find((a) => a.is_default_pickup) || list[0];
         const usualDropoff =
@@ -265,7 +267,14 @@ export default function BookDelivery() {
             </button>
             {rate !== null && (
               <span className="muted small">
-                Charged at {money(rate)} per mile once the run is complete.
+                {money(rate)} per mile
+                {pricing?.base_fee > 0 && ` plus a ${money(pricing.base_fee)} base fee`}
+                {pricing?.fuel_per_mile > 0 &&
+                  ` — first ${Number(pricing.fuel_free_miles)} miles fuel-free, then ${money(
+                    pricing.fuel_per_mile
+                  )}/mile fuel`}
+                {pricing?.tax_rate > 0 && ` + ${Number(pricing.tax_rate)}% tax`}
+                . Billed once the run is complete.
               </span>
             )}
           </div>

@@ -22,6 +22,8 @@ if (!fs.existsSync(envPath)) {
 
 const { exec, query, one, driver } = await import('../src/db.js');
 const { hashPassword } = await import('../src/auth.js');
+const { priceBreakdown } = await import('../src/lib/pricing.js');
+const { getSettings } = await import('../src/lib/settings.js');
 
 const RESET = process.argv.includes('--reset');
 
@@ -36,6 +38,7 @@ async function main() {
       DROP TABLE IF EXISTS users CASCADE;
       DROP TABLE IF EXISTS drivers CASCADE;
       DROP TABLE IF EXISTS customers CASCADE;
+      DROP TABLE IF EXISTS settings CASCADE;
       DROP SEQUENCE IF EXISTS job_reference_seq;
     `);
   }
@@ -143,6 +146,14 @@ async function seedDemoData() {
     postcode: '43017',
   });
 
+  const airportCargo = await insertAddress(customer.id, {
+    label: 'Airport cargo (CMH)',
+    contact_name: 'Cargo desk',
+    line1: '4600 International Gateway',
+    city: 'Columbus',
+    postcode: '43219',
+  });
+
   const legalOffice = await insertAddress(secondCustomer.id, {
     label: 'Head office',
     line1: '22 E Gay St, Suite 400',
@@ -208,6 +219,12 @@ async function seedDemoData() {
       parcel: 'Brochure delivery', invoiced: false, paid: false,
     },
     {
+      // Over the 25-mile fuel-free radius, so the fuel line shows in the demo.
+      customer, from: warehouse, to: airportCargo, driver: driver.id,
+      status: 'delivered', scheduled: at(-2, 6), miles: 38.6,
+      parcel: 'Overnight air freight to CMH cargo', invoiced: true, paid: false,
+    },
+    {
       customer: secondCustomer, from: legalOffice, to: courtAddress, driver: driver.id,
       status: 'delivered', scheduled: at(-1, 10), miles: 2.4,
       parcel: 'Document exchange', invoiced: false, paid: false,
@@ -234,7 +251,8 @@ async function seedDemoData() {
     },
   ];
 
-  for (const job of jobs) await insertJob(job);
+  const settings = await getSettings();
+  for (const job of jobs) await insertJob(job, settings);
 
   console.log(`Seeded ${jobs.length} jobs, 2 customers, 1 driver.`);
 }
@@ -261,13 +279,13 @@ async function insertAddress(customerId, address) {
   );
 }
 
-async function insertJob(job) {
+async function insertJob(job, settings) {
   const { rows } = await query("SELECT nextval('job_reference_seq') AS seq");
   const reference = `JOB-${rows[0].seq}`;
 
-  const miles = job.miles ?? 0;
   const rate = Number(job.customer.rate_per_mile);
-  const price = Math.round(miles * rate * 100) / 100;
+  // Same math the API uses, so demo prices match what the app would charge.
+  const breakdown = priceBreakdown({ miles: job.miles ?? 0, rate_per_mile: rate }, rate, settings);
 
   const collected = ['in_progress', 'delivered'].includes(job.status)
     ? job.scheduled
@@ -282,20 +300,21 @@ async function insertJob(job) {
        pickup_address_id, pickup_name, pickup_phone, pickup_line1, pickup_city, pickup_postcode,
        dropoff_address_id, dropoff_name, dropoff_phone, dropoff_line1, dropoff_city, dropoff_postcode,
        parcel_description, scheduled_at, collected_at, delivered_at,
-       miles, rate_per_mile, price, invoiced, paid
+       miles, rate_per_mile, base_fee, fuel_surcharge, tax_amount, price, invoiced, paid
      ) VALUES (
        $1, $2, $3, $4,
        $5, $6, $7, $8, $9, $10,
        $11, $12, $13, $14, $15, $16,
        $17, $18, $19, $20,
-       $21, $22, $23, $24, $25
+       $21, $22, $23, $24, $25, $26, $27, $28
      )`,
     [
       reference, job.customer.id, job.driver ?? null, job.status,
       job.from.id, job.from.contact_name, job.from.phone, job.from.line1, job.from.city, job.from.postcode,
       job.to.id, job.to.contact_name, job.to.phone, job.to.line1, job.to.city, job.to.postcode,
       job.parcel ?? null, job.scheduled, collected, delivered,
-      miles, rate, price, job.invoiced ?? false, job.paid ?? false,
+      breakdown.miles, rate, breakdown.base_fee, breakdown.fuel_surcharge,
+      breakdown.tax_amount, breakdown.price, job.invoiced ?? false, job.paid ?? false,
     ]
   );
 }

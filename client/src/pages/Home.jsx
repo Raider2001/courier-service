@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
@@ -123,11 +124,90 @@ export default function Home() {
       </main>
 
       <footer className="landing-foot">
-        <p>Locally owned and operated — serving Columbus and central Ohio.</p>
+        <ServiceArea />
         <p className="muted small">
           Questions? Get in touch and we will call you back the same day.
         </p>
       </footer>
     </div>
+  );
+}
+
+/**
+ * "Serving YOUR area" - follows the visitor instead of naming a fixed city.
+ *
+ * Two layers, like delivery tracking:
+ *  1. On load: a rough fix from the visitor's internet connection - instant,
+ *     no permission popup, usually right about the city.
+ *  2. On tap: the phone's real GPS, reverse-geocoded to city + ZIP.
+ * If both fail (offline, denied), it falls back to neutral wording.
+ */
+function ServiceArea() {
+  const [place, setPlace] = useState(null); // { city, region, zip, precise }
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('https://ipapi.co/json/')
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (cancelled || !data?.city) return;
+        // Never downgrade a precise GPS fix with an IP guess.
+        setPlace((current) =>
+          current?.precise
+            ? current
+            : { city: data.city, region: data.region_code, zip: data.postal, precise: false }
+        );
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function locate() {
+    if (!navigator.geolocation) return;
+    setBusy(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          const response = await fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+          );
+          const data = await response.json();
+          setPlace({
+            city: data.city || data.locality,
+            region: data.principalSubdivisionCode?.split('-').pop(),
+            zip: data.postcode,
+            precise: true,
+          });
+        } catch {
+          // Keep whatever we already had.
+        } finally {
+          setBusy(false);
+        }
+      },
+      () => setBusy(false),
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }
+
+  const where = place
+    ? [place.city, place.region].filter(Boolean).join(', ') +
+      (place.zip ? ` ${place.zip}` : '')
+    : null;
+
+  return (
+    <p>
+      {where
+        ? `Locally owned and operated — serving your area (you're near ${where}).`
+        : 'Locally owned and operated — serving your area.'}{' '}
+      {!place?.precise && (
+        <button type="button" className="link" onClick={locate} disabled={busy}>
+          {busy ? 'Locating…' : '📍 Use my exact location'}
+        </button>
+      )}
+    </p>
   );
 }
