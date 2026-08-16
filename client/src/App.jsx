@@ -5,6 +5,7 @@ import { Loading } from './components.jsx';
 
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
+import Home from './pages/Home.jsx';
 
 import AdminDashboard from './pages/admin/Dashboard.jsx';
 import AdminJobs from './pages/admin/Jobs.jsx';
@@ -93,6 +94,7 @@ export default function App() {
   if (!user) {
     return (
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate to="/login" replace state={{ from: location }} />} />
