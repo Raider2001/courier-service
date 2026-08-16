@@ -17,6 +17,11 @@ export default function Contact() {
           </div>
         </Link>
         <nav className="landing-nav">
+          <Link to="/">
+            <button type="button" className="ghost">
+              Home
+            </button>
+          </Link>
           <Link to="/about">
             <button type="button" className="ghost">
               About us

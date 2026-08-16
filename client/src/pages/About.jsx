@@ -17,6 +17,11 @@ export default function About() {
           </div>
         </Link>
         <nav className="landing-nav">
+          <Link to="/">
+            <button type="button" className="ghost">
+              Home
+            </button>
+          </Link>
           <Link to="/contact">
             <button type="button" className="ghost">
               Contact
@@ -61,6 +66,25 @@ export default function About() {
               <strong>Respect for confidentiality.</strong> We do not discuss your business, your
               documents, or your customers with anyone. Paperwork stays sealed, deliveries go to
               the named recipient, and the details stay between us.
+            </li>
+          </ul>
+
+          <h2>Who we deliver for</h2>
+          <p>
+            Both kinds of customer, with the same care — any combination of addresses, in any
+            direction:
+          </p>
+          <ul className="plain-list">
+            <li>
+              <strong>Businesses.</strong> Law offices, title agencies, clinics, print shops,
+              brokerages — recurring runs, account history, and one invoice trail. Business to
+              business, or business to someone&apos;s front door.
+            </li>
+            <li>
+              <strong>Households.</strong> No account manager needed — one person with something
+              that has to get somewhere. Home to home, home to business: the signed contract on
+              your kitchen table to the closing office, medication to a parent across town, keys
+              to a buyer. If it matters to you, it qualifies.
             </li>
           </ul>
 

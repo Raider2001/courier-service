@@ -69,6 +69,11 @@ export default function Reviews() {
           </div>
         </Link>
         <nav className="landing-nav">
+          <Link to="/">
+            <button type="button" className="ghost">
+              Home
+            </button>
+          </Link>
           <Link to="/about">
             <button type="button" className="ghost">
               About us
@@ -188,7 +193,9 @@ export default function Reviews() {
       </main>
 
       <footer className="landing-foot">
-        <p>Locally owned and operated.</p>
+        <p>
+          <Link to="/">← Back to home</Link>
+        </p>
         <p className="muted small">
           <a href={`tel:${BRAND.phoneTel}`}>{BRAND.phoneDisplay}</a> ·{' '}
           <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
