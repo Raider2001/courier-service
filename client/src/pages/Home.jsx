@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { BRAND } from '../branding.js';
+
 /**
  * The public home page - the only page search engines and first-time
  * visitors see. Positioned for the high-trust niche: important documents
@@ -53,6 +55,10 @@ const SERVICES = [
     title: 'Urgent & time-critical',
     text: 'Deadline filings and must-sign packages, moved directly and confirmed the moment they arrive.',
   },
+  {
+    title: 'Small freight',
+    text: 'Bigger than an envelope, smaller than a pallet - parts, samples, supplies and equipment that need a truck and a careful pair of hands, not a freight terminal.',
+  },
   // Coming later - uncomment when certified:
   // {
   //   title: 'Mobile notary',
@@ -81,10 +87,15 @@ export default function Home() {
     <div className="landing">
       <header className="landing-bar">
         <div className="brand">
-          Courier
-          <small>Document &amp; parcel delivery</small>
+          {BRAND.name}
+          <small>{BRAND.tagline}</small>
         </div>
         <nav className="landing-nav">
+          <Link to="/about">
+            <button type="button" className="ghost">
+              About us
+            </button>
+          </Link>
           <Link to="/login">
             <button type="button" className="ghost">
               Sign in

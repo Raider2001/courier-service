@@ -865,6 +865,52 @@ button.ghost:hover:not(:disabled) {
   border-top: 3px solid var(--brand);
 }
 
+/* ---------- about page ---------- */
+
+.brand-link {
+  text-decoration: none;
+}
+
+.hero-slim {
+  padding: 64px 24px 48px;
+}
+
+.hero-slim h1 {
+  font-size: 2.05rem;
+}
+
+.prose {
+  max-width: 680px;
+}
+
+.prose p {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #2c3543;
+}
+
+.prose h2 {
+  font-size: 1.25rem;
+  margin: 28px 0 10px;
+}
+
+.plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.plain-list li {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brand);
+  border-radius: 10px;
+  padding: 14px 16px;
+  line-height: 1.55;
+}
+
 .landing-section {
   max-width: 960px;
   margin: 0 auto;

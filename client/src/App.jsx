@@ -1,11 +1,13 @@
 import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { useAuth } from './auth.jsx';
+import { BRAND } from './branding.js';
 import { Loading } from './components.jsx';
 
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Home from './pages/Home.jsx';
+import About from './pages/About.jsx';
 
 import AdminDashboard from './pages/admin/Dashboard.jsx';
 import AdminJobs from './pages/admin/Jobs.jsx';
@@ -53,7 +55,7 @@ function Shell({ children }) {
     <div className="shell">
       <aside className="sidebar">
         <div className="brand">
-          Courier
+          {BRAND.name}
           <small>{isAdmin ? 'Control room' : isDriver ? 'Driver' : 'Customer portal'}</small>
         </div>
 
@@ -97,6 +99,7 @@ export default function App() {
     return (
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate to="/login" replace state={{ from: location }} />} />
