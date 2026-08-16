@@ -123,7 +123,7 @@ export default function Home() {
       </main>
 
       <footer className="landing-foot">
-        <p>Serving Leeds and West Yorkshire.</p>
+        <p>Locally owned and operated — serving Columbus and central Ohio.</p>
         <p className="muted small">
           Questions? Get in touch and we will call you back the same day.
         </p>

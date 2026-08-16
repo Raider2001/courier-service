@@ -92,7 +92,7 @@ async function seedDemoData() {
       'Northgate Print Co.',
       'Sarah Whitfield',
       'demo@customer.local',
-      '07700 900142',
+      '(614) 555-0142',
       1.35,
       'Regular weekday runs. Invoice monthly.',
     ]
@@ -114,48 +114,48 @@ async function seedDemoData() {
     `INSERT INTO customers (name, contact_name, email, phone, rate_per_mile)
      VALUES ($1, $2, $3, $4, $5)
      RETURNING id, rate_per_mile`,
-    ['Alderman Legal LLP', 'James Alderman', 'accounts@alderman.example', '07700 900318', 1.5]
+    ['Alderman Legal LLP', 'James Alderman', 'accounts@alderman.example', '(614) 555-0138', 1.5]
   );
 
   const warehouse = await insertAddress(customer.id, {
-    label: 'Print works (main)',
-    contact_name: 'Goods in',
-    phone: '07700 900142',
-    line1: 'Unit 7, Northgate Industrial Estate',
-    city: 'Leeds',
-    postcode: 'LS11 5RD',
+    label: 'Print shop (main)',
+    contact_name: 'Receiving dock',
+    phone: '(614) 555-0142',
+    line1: '4870 Northgate Industrial Pkwy',
+    city: 'Columbus',
+    postcode: '43231',
     is_default_pickup: true,
   });
 
   const shopfront = await insertAddress(customer.id, {
-    label: 'City centre shop',
+    label: 'Downtown store',
     contact_name: 'Front desk',
-    line1: '14 Briggate',
-    city: 'Leeds',
-    postcode: 'LS1 6ER',
+    line1: '14 N High St',
+    city: 'Columbus',
+    postcode: '43215',
     is_default_dropoff: true,
   });
 
   const clientSite = await insertAddress(customer.id, {
-    label: 'Harrogate client',
-    line1: '3 Montpellier Parade',
-    city: 'Harrogate',
-    postcode: 'HG1 2TJ',
+    label: 'Dublin client',
+    line1: '55 Bridge Park Ave',
+    city: 'Dublin',
+    postcode: '43017',
   });
 
   const legalOffice = await insertAddress(secondCustomer.id, {
     label: 'Head office',
-    line1: '22 Park Square East',
-    city: 'Leeds',
-    postcode: 'LS1 2NE',
+    line1: '22 E Gay St, Suite 400',
+    city: 'Columbus',
+    postcode: '43215',
     is_default_pickup: true,
   });
 
   const courtAddress = await insertAddress(secondCustomer.id, {
-    label: 'Combined Court',
-    line1: 'Leeds Combined Court Centre, 1 Oxford Row',
-    city: 'Leeds',
-    postcode: 'LS1 3BG',
+    label: 'County Courthouse',
+    line1: 'Franklin County Courthouse, 345 S High St',
+    city: 'Columbus',
+    postcode: '43215',
     is_default_dropoff: true,
   });
 
@@ -163,7 +163,7 @@ async function seedDemoData() {
     `INSERT INTO drivers (name, phone, email, vehicle_reg)
      VALUES ($1, $2, $3, $4)
      RETURNING id`,
-    ['Danny Foster', '07700 900771', 'danny@courier.local', 'YK21 XPL']
+    ['Danny Foster', '(614) 555-0171', 'danny@courier.local', 'HJK 4821']
   );
 
   await query(
@@ -190,7 +190,7 @@ async function seedDemoData() {
     {
       customer, from: warehouse, to: clientSite, driver: driver.id,
       status: 'delivered', scheduled: at(-7, 11), miles: 18.4,
-      parcel: 'Exhibition banners', invoiced: true, paid: true,
+      parcel: 'Trade show banners', invoiced: true, paid: true,
     },
     {
       customer, from: warehouse, to: shopfront, driver: driver.id,
@@ -200,7 +200,7 @@ async function seedDemoData() {
     {
       customer: secondCustomer, from: legalOffice, to: courtAddress, driver: driver.id,
       status: 'delivered', scheduled: at(-3, 9), miles: 2.3,
-      parcel: 'Sealed court bundle - urgent', invoiced: true, paid: false,
+      parcel: 'Sealed court filings - urgent', invoiced: true, paid: false,
     },
     {
       customer, from: warehouse, to: clientSite, driver: driver.id,
@@ -215,7 +215,7 @@ async function seedDemoData() {
     {
       customer, from: warehouse, to: shopfront, driver: driver.id,
       status: 'in_progress', scheduled: at(0, 9), miles: 6.2,
-      parcel: 'Poster run - collected 09:15',
+      parcel: 'Poster run - picked up 9:15 AM',
     },
     {
       customer, from: warehouse, to: clientSite, driver: driver.id,

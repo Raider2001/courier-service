@@ -33,8 +33,13 @@ export function AuthProvider({ children }) {
         return data.user;
       },
       async logout() {
-        await api.logout();
-        setUser(null);
+        // Even if the server can't be reached, sign out locally - never
+        // leave someone stuck "signed in" on a shared or borrowed device.
+        try {
+          await api.logout();
+        } finally {
+          setUser(null);
+        }
       },
       setUser,
     }),

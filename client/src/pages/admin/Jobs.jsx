@@ -56,7 +56,7 @@ export default function AdminJobs() {
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Reference, customer, postcode…"
+            placeholder="Reference, customer, ZIP code…"
           />
           <button type="submit" className="secondary">
             Search

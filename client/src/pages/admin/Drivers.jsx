@@ -116,7 +116,7 @@ export default function AdminDrivers() {
               <Field label="Email">
                 <input type="email" value={form.email} onChange={set('email')} />
               </Field>
-              <Field label="Vehicle registration">
+              <Field label="License plate">
                 <input value={form.vehicle_reg} onChange={set('vehicle_reg')} />
               </Field>
             </div>

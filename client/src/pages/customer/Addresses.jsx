@@ -153,7 +153,7 @@ export default function Addresses() {
               <Field label="Town / city">
                 <input value={form.city} onChange={set('city')} />
               </Field>
-              <Field label="Postcode">
+              <Field label="ZIP code">
                 <input value={form.postcode} onChange={set('postcode')} />
               </Field>
             </div>

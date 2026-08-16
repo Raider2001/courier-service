@@ -91,7 +91,7 @@ function EndpointPicker({ side, title, addresses, selection, onSelect, onEdit })
             <Field label="Town / city">
               <input value={selection.fresh.city} onChange={onEdit('city')} />
             </Field>
-            <Field label="Postcode">
+            <Field label="ZIP code">
               <input value={selection.fresh.postcode} onChange={onEdit('postcode')} />
             </Field>
           </div>
