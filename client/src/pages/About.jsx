@@ -17,6 +17,11 @@ export default function About() {
           </div>
         </Link>
         <nav className="landing-nav">
+          <Link to="/contact">
+            <button type="button" className="ghost">
+              Contact
+            </button>
+          </Link>
           <Link to="/login">
             <button type="button" className="ghost">
               Sign in

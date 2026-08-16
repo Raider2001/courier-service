@@ -911,6 +911,46 @@ button.ghost:hover:not(:disabled) {
   line-height: 1.55;
 }
 
+/* ---------- contact page + special deliveries ---------- */
+
+.contact-big {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 4px 0 10px;
+}
+
+.contact-big a {
+  text-decoration: none;
+}
+
+.contact-big a:hover {
+  text-decoration: underline;
+}
+
+.notice-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  background: #f2f6ff;
+  border: 1px solid #cddcff;
+  border-left: 4px solid var(--brand);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+}
+
+.notice-band h3 {
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.notice-band p {
+  margin: 0;
+  color: #3c4757;
+  max-width: 560px;
+}
+
 .landing-section {
   max-width: 960px;
   margin: 0 auto;

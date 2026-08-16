@@ -96,6 +96,11 @@ export default function Home() {
               About us
             </button>
           </Link>
+          <Link to="/contact">
+            <button type="button" className="ghost">
+              Contact
+            </button>
+          </Link>
           <Link to="/login">
             <button type="button" className="ghost">
               Sign in
@@ -170,6 +175,24 @@ export default function Home() {
         </section>
 
         <section className="landing-section">
+          <div className="notice-band">
+            <div>
+              <h3>Special deliveries welcomed</h3>
+              <p>
+                Odd sizes, unusual hours, extra care — we&apos;re glad to take them on, with
+                prior approval and enough time allowed. Reach out first and we&apos;ll agree the
+                plan and the price.
+              </p>
+            </div>
+            <Link to="/contact">
+              <button type="button" className="secondary">
+                Contact us
+              </button>
+            </Link>
+          </div>
+        </section>
+
+        <section className="landing-section">
           <h2>How it works</h2>
           <ol className="steps">
             {STEPS.map((step, index) => (
@@ -200,7 +223,10 @@ export default function Home() {
       <footer className="landing-foot">
         <ServiceArea />
         <p className="muted small">
-          Questions? Get in touch and we will call you back the same day.
+          Questions, concerns or special deliveries?{' '}
+          <a href={`tel:${BRAND.phoneTel}`}>{BRAND.phoneDisplay}</a> ·{' '}
+          <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a> ·{' '}
+          <Link to="/contact">Contact us</Link>
         </p>
       </footer>
     </div>

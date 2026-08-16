@@ -8,6 +8,7 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
 
 import AdminDashboard from './pages/admin/Dashboard.jsx';
 import AdminJobs from './pages/admin/Jobs.jsx';
@@ -100,6 +101,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate to="/login" replace state={{ from: location }} />} />

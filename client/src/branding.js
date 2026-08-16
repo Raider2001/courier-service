@@ -9,5 +9,7 @@ export const BRAND = {
   tagline: 'Document & parcel delivery',
   // The story on the About page. First person plural reads best.
   aboutYears: '36 years',
-  phoneDisplay: '', // e.g. '(614) 555-0100' - shown on the public pages when set
+  phoneDisplay: '224-400-3890',
+  phoneTel: '+12244003890', // for tap-to-call links
+  email: 'davestevens038@gmail.com',
 };
