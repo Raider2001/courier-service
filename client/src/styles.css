@@ -951,6 +951,71 @@ button.ghost:hover:not(:disabled) {
   max-width: 560px;
 }
 
+/* ---------- reviews ---------- */
+
+.stars {
+  color: #e8a715;
+  letter-spacing: 2px;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.review-list {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.landing-card.review header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.landing-card.review p {
+  color: #2c3543;
+  margin: 0 0 12px;
+  line-height: 1.55;
+}
+
+.landing-card.review footer {
+  font-size: 0.9rem;
+}
+
+.landing-card.review .tag {
+  margin-left: 8px;
+}
+
+.review-form {
+  max-width: 560px;
+}
+
+.star-input {
+  display: flex;
+  gap: 4px;
+}
+
+.star-input button {
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: #cfd6e2;
+  cursor: pointer;
+}
+
+.star-input button.on {
+  color: #e8a715;
+}
+
+.star-input button:hover:not(:disabled) {
+  background: none;
+  transform: scale(1.12);
+}
+
 .landing-section {
   max-width: 960px;
   margin: 0 auto;

@@ -96,6 +96,11 @@ export default function Home() {
               About us
             </button>
           </Link>
+          <Link to="/reviews">
+            <button type="button" className="ghost">
+              Reviews
+            </button>
+          </Link>
           <Link to="/contact">
             <button type="button" className="ghost">
               Contact

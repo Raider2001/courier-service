@@ -18,6 +18,7 @@ import jobRoutes from './routes/jobs.js';
 import driverRoutes from './routes/drivers.js';
 import dashboardRoutes from './routes/dashboard.js';
 import settingsRoutes from './routes/settings.js';
+import reviewRoutes from './routes/reviews.js';
 
 const PORT = Number(process.env.PORT) || 4000;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
@@ -56,6 +57,7 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/drivers', driverRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 app.use('/api', (_req, res) => {
   res.status(404).json({ error: 'Not found.' });

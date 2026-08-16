@@ -162,3 +162,21 @@ CREATE INDEX IF NOT EXISTS jobs_driver_id_idx     ON jobs (driver_id);
 CREATE INDEX IF NOT EXISTS jobs_status_idx        ON jobs (status);
 CREATE INDEX IF NOT EXISTS jobs_scheduled_at_idx  ON jobs (scheduled_at);
 CREATE INDEX IF NOT EXISTS jobs_created_at_idx    ON jobs (created_at);
+
+-- ---------------------------------------------------------------------------
+-- Reviews. Anyone may submit; nothing shows publicly until the owner
+-- approves it - a trust business cannot afford spam or sabotage.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS reviews (
+  id          SERIAL PRIMARY KEY,
+  name        TEXT NOT NULL,
+  business    TEXT,
+  rating      INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  comment     TEXT NOT NULL,
+  -- Set when the reviewer was signed in - lets us badge "verified customer".
+  customer_id INTEGER REFERENCES customers(id) ON DELETE SET NULL,
+  approved    BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS reviews_approved_idx ON reviews (approved, created_at);

@@ -60,4 +60,9 @@ export const api = {
 
   settings: () => request('/settings'),
   updateSettings: (body) => request('/settings', { method: 'PATCH', body }),
+
+  reviews: (params) => request(`/reviews${qs(params)}`),
+  createReview: (body) => request('/reviews', { method: 'POST', body }),
+  updateReview: (id, body) => request(`/reviews/${id}`, { method: 'PATCH', body }),
+  deleteReview: (id) => request(`/reviews/${id}`, { method: 'DELETE' }),
 };

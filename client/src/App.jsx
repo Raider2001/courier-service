@@ -9,6 +9,7 @@ import Register from './pages/Register.jsx';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
+import Reviews from './pages/Reviews.jsx';
 
 import AdminDashboard from './pages/admin/Dashboard.jsx';
 import AdminJobs from './pages/admin/Jobs.jsx';
@@ -17,6 +18,7 @@ import AdminCustomers from './pages/admin/Customers.jsx';
 import AdminCustomerDetail from './pages/admin/CustomerDetail.jsx';
 import AdminDrivers from './pages/admin/Drivers.jsx';
 import AdminPricing from './pages/admin/Pricing.jsx';
+import AdminReviews from './pages/admin/Reviews.jsx';
 
 import CustomerDashboard from './pages/customer/Dashboard.jsx';
 import BookDelivery from './pages/customer/Book.jsx';
@@ -33,6 +35,7 @@ const ADMIN_NAV = [
   { to: '/customers', label: 'Customers' },
   { to: '/drivers', label: 'Drivers' },
   { to: '/pricing', label: 'Pricing' },
+  { to: '/reviews', label: 'Reviews' },
 ];
 
 const CUSTOMER_NAV = [
@@ -102,6 +105,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate to="/login" replace state={{ from: location }} />} />
@@ -121,6 +125,7 @@ export default function App() {
             <Route path="/customers/:id" element={<AdminCustomerDetail />} />
             <Route path="/drivers" element={<AdminDrivers />} />
             <Route path="/pricing" element={<AdminPricing />} />
+            <Route path="/reviews" element={<AdminReviews />} />
           </>
         ) : isDriver ? (
           <>

@@ -33,6 +33,7 @@ async function main() {
   if (RESET) {
     console.log('Dropping existing tables...');
     await exec(`
+      DROP TABLE IF EXISTS reviews CASCADE;
       DROP TABLE IF EXISTS jobs CASCADE;
       DROP TABLE IF EXISTS addresses CASCADE;
       DROP TABLE IF EXISTS users CASCADE;
@@ -254,7 +255,33 @@ async function seedDemoData() {
   const settings = await getSettings();
   for (const job of jobs) await insertJob(job, settings);
 
-  console.log(`Seeded ${jobs.length} jobs, 2 customers, 1 driver.`);
+  // Demo reviews - two live, one waiting so the moderation screen has work.
+  const reviews = [
+    {
+      name: 'Sarah Whitfield', business: 'Northgate Print Co.', rating: 5, customer_id: customer.id,
+      comment: 'Our shop restock arrives every week without me thinking about it. Booking takes four taps and I can see exactly where every run is.',
+      approved: true,
+    },
+    {
+      name: 'James Alderman', business: 'Alderman Legal LLP', rating: 5, customer_id: secondCustomer.id,
+      comment: 'Court filings, sealed and on time, every time. The delivery record has already settled one dispute for us.',
+      approved: true,
+    },
+    {
+      name: 'Pat Doyle', business: null, rating: 4, customer_id: null,
+      comment: 'Quick turnaround on a same-day package. Would use again.',
+      approved: false,
+    },
+  ];
+  for (const review of reviews) {
+    await query(
+      `INSERT INTO reviews (name, business, rating, comment, customer_id, approved)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [review.name, review.business, review.rating, review.comment, review.customer_id, review.approved]
+    );
+  }
+
+  console.log(`Seeded ${jobs.length} jobs, 2 customers, 1 driver, ${reviews.length} reviews.`);
 }
 
 async function insertAddress(customerId, address) {

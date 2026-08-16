@@ -43,8 +43,108 @@ function JobRows({ jobs, emptyText }) {
   );
 }
 
-export default function CustomerDashboard() {
+/**
+ * "How did we do?" - shows once the customer has at least one completed
+ * delivery, and disappears for good after they leave a review. Signed-in
+ * submissions are automatically badged "verified customer" once approved.
+ */
+function HowDidWeDo({ deliveredCount }) {
   const { user } = useAuth();
+  const [visible, setVisible] = useState(false);
+  const [thanks, setThanks] = useState(false);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (!deliveredCount) return;
+    // Only ask people we have not asked successfully before.
+    api
+      .reviews({ mine: 'true' })
+      .then((data) => setVisible(data.reviews.length === 0))
+      .catch(() => {});
+  }, [deliveredCount]);
+
+  async function submit(event) {
+    event.preventDefault();
+    setError('');
+    setBusy(true);
+    try {
+      await api.createReview({
+        name: user.name,
+        business: user.customer?.name || '',
+        rating,
+        comment,
+      });
+      setThanks(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (!visible) return null;
+
+  if (thanks) {
+    return (
+      <Card title="How did we do?">
+        <p style={{ margin: 0 }}>
+          <strong>Thank you!</strong> Your review is with us and will appear on our site once
+          it&apos;s approved.
+        </p>
+      </Card>
+    );
+  }
+
+  return (
+    <Card title="How did we do?">
+      <p className="muted" style={{ margin: '0 0 12px' }}>
+        You&apos;ve had {deliveredCount} {deliveredCount === 1 ? 'delivery' : 'deliveries'} with
+        us — a quick review helps other businesses find us.
+      </p>
+
+      <Message error={error} />
+
+      <form onSubmit={submit}>
+        <div className="star-input" style={{ marginBottom: 12 }}>
+          {[1, 2, 3, 4, 5].map((value) => (
+            <button
+              key={value}
+              type="button"
+              className={value <= rating ? 'on' : ''}
+              onClick={() => setRating(value)}
+              aria-label={`${value} star${value > 1 ? 's' : ''}`}
+            >
+              ★
+            </button>
+          ))}
+        </div>
+
+        <textarea
+          value={comment}
+          onChange={(event) => setComment(event.target.value)}
+          required
+          maxLength={1000}
+          rows={3}
+          placeholder="How did we do?"
+        />
+
+        <div className="actions">
+          <button type="submit" disabled={busy}>
+            {busy ? 'Sending…' : 'Send review'}
+          </button>
+          <button type="button" className="link" onClick={() => setVisible(false)}>
+            Maybe later
+          </button>
+        </div>
+      </form>
+    </Card>
+  );
+}
+
+export default function CustomerDashboard() {  const { user } = useAuth();
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
 
@@ -84,6 +184,8 @@ export default function CustomerDashboard() {
           tone={totals.outstanding > 0 ? 'warn' : undefined}
         />
       </div>
+
+      <HowDidWeDo deliveredCount={totals.delivered_total} />
 
       <Card title="Coming up">
         <JobRows jobs={upcoming} emptyText="No deliveries booked. Book one and it will appear here." />
