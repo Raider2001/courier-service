@@ -47,8 +47,14 @@ async function main() {
   await seedAdmin();
 
   const { rows } = await query('SELECT COUNT(*)::int AS count FROM jobs');
+  const wantDemo =
+    process.env.SEED_DEMO === 'true' ||
+    (process.env.SEED_DEMO !== 'false' && process.env.NODE_ENV !== 'production');
+
   if (rows[0].count > 0) {
     console.log(`Database already has ${rows[0].count} jobs - skipping demo data.`);
+  } else if (!wantDemo) {
+    console.log('Production database - starting clean, no demo data.');
   } else {
     await seedDemoData();
   }

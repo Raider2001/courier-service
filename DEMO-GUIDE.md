@@ -1,110 +1,105 @@
-# Courier App — Try It Out
+# Your Courier App — A Guided Look Around
 
-*Print this page and keep it next to your phone.*
+*This sheet is yours to keep. Take your time — the app is live and stays
+live, so you can look it over whenever suits you, day or night.*
 
 ---
 
 ## 1. Open the app on your phone
 
-**Easiest way — the internet link.** If you've been given a link ending in
-`trycloudflare.com`, just open it in your phone's browser. It works from
-anywhere — home, the office, mobile data — no Wi-Fi rules. Write it here:
+Open your phone's browser (Safari, Chrome — any) and go to:
 
-> **Today's link:** ______________________________________
+> ## https://das-heated-billy-typing.trycloudflare.com
 
-(That link only works while the app is running on the developer's computer,
-and it changes each time it's restarted — so check you have today's.)
+- Works from anywhere — home, the office, mobile data. No special Wi-Fi.
+- Once it loads, choose **"Add to Home Screen"** from your browser's menu
+  and it will open from an icon like a normal app.
+- If the link ever stops working, it just means the demo computer was
+  restarted — call or text and you'll get the fresh link straight away.
 
-**Or, on the same Wi-Fi as the developer's computer**, type this address:
-
-> ## `http://192.168.12.108:5173`
-
-Tip: once it loads, use your browser's menu and choose **"Add to Home
-Screen"** — the app then opens from an icon like any other app.
-
-When the app moves to its permanent home on the internet, the address will
-change to something like `https://your-business.onrender.com` and will work
-from anywhere, no Wi-Fi rules. Write the permanent address here when you
-get it:
-
-> **Permanent address:** ______________________________________
+> Fresh link, if needed: ______________________________________
 
 ---
 
-## 2. Sign in
+## 2. Sign in — three ways to see it
 
-There are three ways into the app. These are **demo accounts with demo data**
-— nothing you do in them is real, so click anything you like.
+Everything in here is **pretend demo data** — made-up customers, made-up
+deliveries. Nothing you press can break anything, so press everything.
 
-| Who | Email | Password |
+| Who you're signed in as | Email | Password |
 |---|---|---|
-| **You (the owner)** | `admin@courier.local` | `changeme123` |
-| A customer | `demo@customer.local` | `demo1234` |
-| A driver | `danny@courier.local` | `drive1234` |
+| **You — the owner** | `admin@courier.local` | `changeme123` |
+| One of your customers | `demo@customer.local` | `demo1234` |
+| One of your drivers | `danny@courier.local` | `drive1234` |
 
-Sign out from the menu, then sign in as someone else to see their view.
+Use **Sign out** (bottom of the menu), then sign in as the next one.
 
 ---
 
-## 3. What to try as the OWNER
+## 3. Your view — the owner
 
 Sign in as **admin@courier.local**. This is your control room.
 
-1. **The Today screen** — everything at a glance: today's runs, requests
-   waiting to be scheduled, miles and revenue this month, and money still
-   owed to you.
-2. **Schedule a request** — two customer bookings are sitting in "Needs
-   you". Open one, give it a date and a driver, and it moves to *Assigned*.
-3. **Finish a delivery** — open any delivery, type odometer start and end
-   readings, and watch the miles and the price work themselves out. Tick
-   *invoiced* and *paid* when the money side is done.
-4. **Customers** — open one to see their rate per mile, saved addresses,
-   total miles and what they owe. Try adding a new customer.
-5. **Drivers** — add a driver, and (optionally) give them a password so
-   they can use the app themselves.
+1. **Today** — one screen with everything: today's runs, new requests
+   waiting on you, miles and money this month, and who still owes you.
+2. **Schedule a request** — two customer bookings are waiting in
+   "Needs you". Open one, give it a date and a driver — done.
+3. **Finish a delivery** — open any job, type the odometer readings, and
+   the miles and price work themselves out. Tick *invoiced* and *paid*
+   when the money's in.
+4. **Customers** — each one's rate per mile, addresses, history, and
+   what they owe. Try adding a new customer.
+5. **Drivers** — add a driver and, if you like, give them a password so
+   they can use the app from their own phone.
 
 ---
 
-## 4. What to try as a CUSTOMER
+## 4. Your customers' view
 
-Sign out, then sign in as **demo@customer.local**. This is what your
-customers get.
+Sign in as **demo@customer.local**.
 
-1. **Book a delivery** — notice the saved addresses appear as one-tap
-   choices, with the usual pickup and drop-off already selected. A returning
-   customer books in about four taps and types nothing.
-2. Type a new address once and it's saved automatically for next time.
-3. **My deliveries** — they can see the status of every job and their
-   prices, so they don't need to ring you to ask.
+1. **Book a delivery** — their saved addresses appear as one-tap buttons
+   with their usual pickup and drop-off already picked. A regular books
+   in about four taps and types nothing.
+2. A new address only ever needs typing **once** — it's saved for next time.
+3. **My deliveries** — they see the status and price of every job
+   themselves, instead of ringing you to ask.
 
-New customers can create their own account from the sign-in screen —
-try **"Create an account"** with a made-up email.
-
----
-
-## 5. What to try as a DRIVER (best on the phone)
-
-Sign out, then sign in as **danny@courier.local**.
-
-1. **My runs** — each assigned job is a card with both addresses and
-   tap-to-call phone numbers.
-2. Tap **Picked up** when collecting (enter the odometer if you want).
-3. Tap **Delivered** at the drop-off, enter the odometer — the miles and
-   the customer's price are calculated on the spot. You do nothing.
-4. **History** shows every completed run and total miles driven.
+New customers create their own account from the sign-in screen — try
+**"Create an account"** with a made-up email.
 
 ---
 
-## If it won't load on the phone
+## 5. Your drivers' view (best on a phone)
 
-- Check the phone is on the **same Wi-Fi** as the computer (not mobile data).
-- Check the app is running on the computer.
-- The first time, Windows may ask on the computer whether to allow
-  **Node.js** through the firewall — choose **Allow**.
-- The address (`192.168.12.108`) can occasionally change when the router
-  restarts. On the computer, run `ipconfig` and use the new "IPv4 Address".
+Sign in as **danny@courier.local**.
+
+1. **My runs** — each job is a card with both addresses and tap-to-call
+   phone numbers.
+2. Tap **Picked up** at collection, **Delivered** at the drop-off, typing
+   the odometer as they go — mileage and the customer's price are
+   calculated on the spot, and your dashboard updates instantly.
+3. **History** — every run they've done and total miles driven.
 
 ---
 
-*Questions, ideas, things that annoy you — write them on the back of this
-sheet. That list becomes the next version.*
+## 6. What happens next (when you say "yes")
+
+1. **A permanent home.** The app moves to its own web address — something
+   like `https://yourbusiness.com` — that works forever without anyone's
+   computer being left on.
+2. **Your real login.** The demo accounts are wiped. You choose your own
+   email and password, and the app starts empty, ready for your real
+   customers.
+3. **30 days of shaping it to you.** For the first month it will be
+   watched closely and anything that doesn't fit how you actually work
+   gets changed — quickly. Your job is just to use it and say what
+   annoys you.
+
+**As you look around, jot on the back of this sheet:** anything confusing,
+anything missing, anything you'd never use. That list decides what gets
+built next.
+
+---
+
+*Questions any time — you know where to find me.*
