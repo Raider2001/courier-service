@@ -17,7 +17,10 @@ services:
     name: courier
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build
+    # --include=dev: NODE_ENV=production is set during the build too, which
+    # would otherwise make npm skip devDependencies - and vite (the build
+    # tool) is a devDependency.
+    buildCommand: npm install --include=dev && npm run build
     # setup.js is idempotent: creates tables if missing, seeds only when empty.
     startCommand: node server/db/setup.js && npm start
     healthCheckPath: /api/health
